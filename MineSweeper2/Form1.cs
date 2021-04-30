@@ -20,6 +20,8 @@ namespace MineSweeper2
 
             int[,] ValueThisLocationArray = new int[9, 9];
 
+            Save save = new Save();
+
 
 
             for (int i = 0; i < 9; i++)
@@ -120,23 +122,43 @@ namespace MineSweeper2
             }
             #endregion
 
-
             for(int i = 0; i < 9; i++)
             {
 
                 for(int j = 0; j < 9; j++)
                 {
 
-                    if(setButton[i, j].BoomAround == 0 && setButton[i, j].isOpen == true)
+                    setButton[i, j].Click += Process;
+
+                    save.X = i;
+
+                    save.Y = j;
+
+
+                }
+
+            }
+
+            
+            void Process(object sender, EventArgs e)
+            {
+
+                setButton[save.X, save.Y].isOpen = false;
+
+                for (int i = 0; i < 9; i++)
+                {
+
+                    for (int j = 0; j < 9; j++)
                     {
 
-                        DeQuy(i, j);
+
 
                     }
 
                 }
 
             }
+            
 
             void DeQuy(int LocationXclicked, int LocationYclicked)
             {

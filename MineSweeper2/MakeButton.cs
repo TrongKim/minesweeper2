@@ -189,6 +189,15 @@ namespace MineSweeper2
 
     }
 
+    public class Save
+    {
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+    }
+
 
 }
 
