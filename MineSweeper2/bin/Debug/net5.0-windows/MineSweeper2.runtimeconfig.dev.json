@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\FlyTop\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\FlyTop\\.nuget\\packages"
+    ]
+  }
+}
