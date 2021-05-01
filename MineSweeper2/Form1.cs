@@ -12,17 +12,18 @@ namespace MineSweeper2
 {
     public partial class Form1 : Form
     {
+
+        private static MakeButton[,] setButton = new MakeButton[9, 9];
+
         public Form1()
         {
             InitializeComponent();
-
-            var setButton = new MakeButton[9, 9];
+            
 
             int[,] ValueThisLocationArray = new int[9, 9];
 
-            Save save = new Save();
 
-
+            #region Create Value In Value Form
 
             for (int i = 0; i < 9; i++)
             {
@@ -35,6 +36,10 @@ namespace MineSweeper2
                 }
 
             }
+
+            #endregion
+
+            #region Create Buttons In Forms
 
             for (int LocationX = 0; LocationX < 9; LocationX++)
             {
@@ -59,6 +64,9 @@ namespace MineSweeper2
 
             }
 
+            #endregion
+
+            #region Random Address Boom In Form
             int IncreBoomInForm = 0;
             //Limit Boom in Window Form 12
             //And Random X, Y in Location Button
@@ -103,6 +111,8 @@ namespace MineSweeper2
 
             }
 
+            #endregion
+
             #region gán giá trị cho từng nút theo tọa độ
             for (int i = 0; i < 9; i++)
             {
@@ -122,78 +132,91 @@ namespace MineSweeper2
             }
             #endregion
 
+
+
+
+
+
+            //Form1();
+
+
+
+        }
+
+
+
+
+        public void Process(object sender, MouseEventArgs e)
+        {
+
+
             for(int i = 0; i < 9; i++)
             {
 
                 for(int j = 0; j < 9; j++)
                 {
 
-                    setButton[i, j].Click += Process;
-
-                    save.X = i;
-
-                    save.Y = j;
-
-
-                }
-
-            }
-
-            
-            void Process(object sender, EventArgs e)
-            {
-
-                setButton[save.X, save.Y].isOpen = false;
-
-                for (int i = 0; i < 9; i++)
-                {
-
-                    for (int j = 0; j < 9; j++)
+                    if (setButton[i, j].isOpen == false)
                     {
 
-
+                        DeQuy(i, j);
 
                     }
 
                 }
 
             }
-            
-
-            void DeQuy(int LocationXclicked, int LocationYclicked)
-            {
-
-                for (int ToaDoX = LocationXclicked - 1; ToaDoX <= LocationXclicked + 1; ToaDoX++)
-                {
-
-                    for (int ToaDoY = LocationYclicked - 1; ToaDoY <= LocationYclicked + 1; ToaDoY++)
-                    {
-                        
-                        if ((ToaDoX < 9 & ToaDoY < 9) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == LocationXclicked && ToaDoY == LocationYclicked))
-                        {
 
 
-                            setButton[ToaDoX, ToaDoY].Open();
-
-                            if(setButton[ToaDoX, ToaDoY].BoomAround == 0)
-                            {
-
-                                /*DeQuy(ToaDoX, ToaDoY);*/
-
-                            }
-                            
-
-
-                        }
-
-                    }
-
-
-                }
-
-            }
 
         }
 
+
+        private void DeQuy(int LocationXclicked, int LocationYclicked)
+        {
+
+            for (int ToaDoX = LocationXclicked - 1; ToaDoX <= LocationXclicked + 1; ToaDoX++)
+            {
+
+                for (int ToaDoY = LocationYclicked - 1; ToaDoY <= LocationYclicked + 1; ToaDoY++)
+                {
+
+                    if ((ToaDoX < 9 & ToaDoY < 9) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == LocationXclicked && ToaDoY == LocationYclicked))
+                    {
+
+
+                        setButton[ToaDoX, ToaDoY].Open();
+
+                        if (setButton[ToaDoX, ToaDoY].BoomAround == 0)
+                        {
+
+                            DeQuy(ToaDoX, ToaDoY);
+
+                        }
+
+
+
+                    }
+
+                }
+
+
+            }
+
+
+        }
+
+
+
+
+
+        //partial class
+
+
+
     }
+
+
+
+
 }
