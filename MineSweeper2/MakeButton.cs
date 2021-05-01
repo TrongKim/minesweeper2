@@ -14,16 +14,17 @@ namespace MineSweeper2
         public bool isBoom = false;
         public int BoomAround = 0;
         public bool isOpen;
-
-        Form1 f = new Form1();
+        
+        
 
         public MakeButton()
         {
 
+            
             this.MouseDown += new MouseEventHandler(ButtonClicked);
 
-            this.MouseDown += new MouseEventHandler(f.Process);
-
+            this.MouseDown += new MouseEventHandler(Form1.Process);
+            
         }
 
         public void ButtonClicked(object sender, MouseEventArgs e)
@@ -34,12 +35,15 @@ namespace MineSweeper2
             MakeButton btn = sender as MakeButton;
             btn.isOpen = false;
 
+            
+
+
         }
 
 
         public void Open()
         {
-            
+
             if (isBoom)
             {
 

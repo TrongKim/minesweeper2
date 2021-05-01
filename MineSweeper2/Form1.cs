@@ -15,12 +15,13 @@ namespace MineSweeper2
 
         private static MakeButton[,] setButton = new MakeButton[9, 9];
 
+        private static int[,] ValueThisLocationArray = new int[9, 9];
+
         public Form1()
         {
             InitializeComponent();
             
 
-            int[,] ValueThisLocationArray = new int[9, 9];
 
 
             #region Create Value In Value Form
@@ -146,20 +147,22 @@ namespace MineSweeper2
 
 
 
-        public void Process(object sender, MouseEventArgs e)
+        public static void Process(object sender, MouseEventArgs e)
         {
 
 
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
             {
 
-                for(int j = 0; j < 9; j++)
+                for (int j = 0; j < 9; j++)
                 {
 
-                    if (setButton[i, j].isOpen == false)
+                    if (setButton[i, j].isOpen == false && setButton[i, j].BoomAround == 0)
                     {
 
+
                         DeQuy(i, j);
+
 
                     }
 
@@ -172,7 +175,7 @@ namespace MineSweeper2
         }
 
 
-        private void DeQuy(int LocationXclicked, int LocationYclicked)
+        public static void DeQuy(int LocationXclicked, int LocationYclicked)
         {
 
             for (int ToaDoX = LocationXclicked - 1; ToaDoX <= LocationXclicked + 1; ToaDoX++)
@@ -184,13 +187,18 @@ namespace MineSweeper2
                     if ((ToaDoX < 9 & ToaDoY < 9) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == LocationXclicked && ToaDoY == LocationYclicked))
                     {
 
-
-                        setButton[ToaDoX, ToaDoY].Open();
-
-                        if (setButton[ToaDoX, ToaDoY].BoomAround == 0)
+                        if (setButton[ToaDoX, ToaDoY].BoomAround != 0)
                         {
 
-                            DeQuy(ToaDoX, ToaDoY);
+                            setButton[ToaDoX, ToaDoY].Open();
+
+                            setButton[ToaDoX, ToaDoY].isOpen = false;
+
+                        }
+                        else
+                        {
+
+                            setButton[ToaDoX, ToaDoY].Open();
 
                         }
 
