@@ -13,7 +13,7 @@ namespace MineSweeper2
 
         public bool isBoom = false;
         public int BoomAround = 0;
-        public bool isOpen;
+        public int isOpen;
         
         
 
@@ -33,7 +33,7 @@ namespace MineSweeper2
             Open();
 
             MakeButton btn = sender as MakeButton;
-            btn.isOpen = false;
+            btn.isOpen = 5;
 
             
 
@@ -97,7 +97,7 @@ namespace MineSweeper2
 
                 }
 
-                isOpen = false;
+                /*isOpen = 5;*/
 
 
             }

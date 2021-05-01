@@ -54,7 +54,7 @@ namespace MineSweeper2
 
                     setButton[LocationX, LocationY].Size = new System.Drawing.Size(30, 30);
 
-                    setButton[LocationX, LocationY].isOpen = true;
+                    setButton[LocationX, LocationY].isOpen = 0;
 
 
 
@@ -157,7 +157,7 @@ namespace MineSweeper2
                 for (int j = 0; j < 9; j++)
                 {
 
-                    if (setButton[i, j].isOpen == false && setButton[i, j].BoomAround == 0)
+                    if (setButton[i, j].isOpen == 5 && setButton[i, j].BoomAround == 0)
                     {
 
 
@@ -187,18 +187,25 @@ namespace MineSweeper2
                     if ((ToaDoX < 9 & ToaDoY < 9) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == LocationXclicked && ToaDoY == LocationYclicked))
                     {
 
-                        if (setButton[ToaDoX, ToaDoY].BoomAround != 0)
+                        if (setButton[ToaDoX, ToaDoY].BoomAround != 0 && setButton[ToaDoX, ToaDoY].isOpen == 0)
                         {
 
                             setButton[ToaDoX, ToaDoY].Open();
 
-                            setButton[ToaDoX, ToaDoY].isOpen = false;
+                            setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+                            return;
 
                         }
                         else
                         {
 
                             setButton[ToaDoX, ToaDoY].Open();
+
+                            setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+                            DeQuy(ToaDoX, ToaDoY);
+
 
                         }
 
@@ -213,7 +220,6 @@ namespace MineSweeper2
 
 
         }
-
 
 
 
