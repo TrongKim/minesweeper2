@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,23 +14,297 @@ namespace MineSweeper2
     public partial class Form1 : Form
     {
 
-        private static MakeButton[,] setButton = new MakeButton[9, 9];
+        private static MakeButton[,] setButton = new MakeButton[20, 20];
 
-        private static int[,] ValueThisLocationArray = new int[9, 9];
+        private static int[,] ValueThisLocationArray = new int[20, 20];
+
+        public static Save save = new Save();
+
+        public static cloneSave clsave = new cloneSave();
+
+        public static int number1 = 9;
+
+        public static int number2 = 9;
 
         public Form1()
         {
             InitializeComponent();
-            
+
+            CreateArrayValue0();
+
+            CreateButton();
+
+            CreateBoom();
+
+            PushNewValueIntoArray();
+
+        }
 
 
 
-            #region Create Value In Value Form
+        public static void Process(object sender, MouseEventArgs e)
+        {
 
-            for (int i = 0; i < 9; i++)
+            Process2(number1, number2);
+
+        }
+
+        private static void Process2(int SizeX = 9, int SizeY = 9)
+        {
+
+            for (int i = 0; i < SizeX; i++)
             {
 
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < SizeY; j++)
+                {
+
+                    if (setButton[i, j].isOpen == 5 && setButton[i, j].BoomAround == 0)
+                    {
+
+
+                        DeQuy(i, j);
+
+
+                    }
+                    else if (setButton[i, j].isOpen == 5 && setButton[i, j].BoomAround == 9)
+                    {
+
+                        HienBOOM(number1, number2);
+
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        public static void DeQuy(int LocationXclicked, int LocationYclicked)
+        {
+
+            for (int ToaDoX = LocationXclicked - 1; ToaDoX <= LocationXclicked + 1; ToaDoX++)
+            {
+
+                for (int ToaDoY = LocationYclicked - 1; ToaDoY <= LocationYclicked + 1; ToaDoY++)
+                {
+
+                    if ((ToaDoX < number1 & ToaDoY < number2) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == LocationXclicked && ToaDoY == LocationYclicked))
+                    {
+
+                        if(setButton[ToaDoX, ToaDoY].isOpen == 0)
+                        {
+
+                            setButton[ToaDoX, ToaDoY].Open();
+
+                            setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+                            Xulilannua(number1, number2);
+
+                        }
+
+
+
+                    }
+
+                }
+
+
+            }
+
+
+        }
+
+
+        public static void Xulilannua(int SizeX = 9, int SizeY = 9)
+        {
+
+            for(int i = 0; i < SizeX; i++)
+            {
+
+                for(int j = 0; j < SizeY; j++)
+                {
+
+                    if(setButton[i, j].isOpen == 4 && setButton[i, j].BoomAround == 0)
+                    {
+
+                        for (int ToaDoX = i - 1; ToaDoX <= i + 1; ToaDoX++)
+                        {
+
+                            for (int ToaDoY = j - 1; ToaDoY <= j + 1; ToaDoY++)
+                            {
+                                //Kiem tra cac toa do xung quanh
+                                if ((ToaDoX < SizeX & ToaDoY < SizeY) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == i & ToaDoY == j))
+                                {
+
+
+                                    if(setButton[ToaDoX, ToaDoY].BoomAround != 0 && setButton[ToaDoX, ToaDoY].isOpen == 0)
+                                    {
+
+                                        setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+                                        setButton[ToaDoX, ToaDoY].Open();
+
+                                    }
+                                    else
+                                    {
+
+                                        setButton[ToaDoX, ToaDoY].Open();
+
+                                        setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+                                        Xulilannua2(number1, number2);
+
+
+                                    }
+
+                                    
+
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        public static void Xulilannua2(int SizeX = 9, int SizeY = 9)
+        {
+
+            for (int i = 0; i < SizeX; i++)
+            {
+
+                for (int j = 0; j < SizeY; j++)
+                {
+
+                    if (setButton[i, j].isOpen == 4 && setButton[i, j].BoomAround == 0)
+                    {
+
+                        for (int ToaDoX = i - 1; ToaDoX <= i + 1; ToaDoX++)
+                        {
+
+                            for (int ToaDoY = j - 1; ToaDoY <= j + 1; ToaDoY++)
+                            {
+                                //Kiem tra cac toa do xung quanh
+                                if ((ToaDoX < SizeX & ToaDoY < SizeY) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == i & ToaDoY == j))
+                                {
+
+
+                                    if (setButton[ToaDoX, ToaDoY].BoomAround != 0 && setButton[ToaDoX, ToaDoY].isOpen == 0)
+                                    {
+
+                                        setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+                                        setButton[ToaDoX, ToaDoY].Open();
+
+                                    }
+                                    else
+                                    {
+
+                                        setButton[ToaDoX, ToaDoY].Open();
+
+                                        setButton[ToaDoX, ToaDoY].isOpen = 4;
+
+
+                                    }
+
+
+
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+        public static void HienBOOM(int SizeX = 9, int SizeY = 9)
+        {
+
+            for (int i = 0; i < SizeX; i++)
+            {
+
+                for (int j = 0; j < SizeY; j++)
+                {
+
+                    if (setButton[i, j].isBoom && setButton[i, j].isOpen == 0)
+                    {
+
+                        setButton[i, j].Open();
+
+                    }
+
+                    setButton[i, j].Opening = false;
+
+                }
+
+            }
+
+            MessageBox.Show("Bạn đã thua");
+
+
+        }
+   
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            CreateButton(18, 18);//giữ && không gọi các hàm khác
+
+            CreateArrayValue0(18, 18);//giữ không gọi các hàm khác
+
+            CreateBoom(18, 18, 50);//giữ không gọi các hàm khác
+
+            PushNewValueIntoArray(18, 18);//giữ không gọi các hàm khác
+
+            number1 = 18;
+
+            number2 = 18;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            
+
+        }
+
+        private void CreateArrayValue0(int SizeX = 9, int SizeY = 9)
+        {
+
+            for (int i = 0; i < SizeX; i++)
+            {
+
+                for (int j = 0; j < SizeY; j++)
                 {
 
                     ValueThisLocationArray[i, j] = 0;
@@ -38,14 +313,15 @@ namespace MineSweeper2
 
             }
 
-            #endregion
+        }
 
-            #region Create Buttons In Forms
+        private void CreateButton(int SizeX = 9, int SizeY = 9)
+        {
 
-            for (int LocationX = 0; LocationX < 9; LocationX++)
+            for (int LocationX = 0; LocationX < SizeX; LocationX++)
             {
 
-                for (int LocationY = 0; LocationY < 9; LocationY++)
+                for (int LocationY = 0; LocationY < SizeY; LocationY++)
                 {
 
                     setButton[LocationX, LocationY] = new MakeButton();
@@ -56,6 +332,8 @@ namespace MineSweeper2
 
                     setButton[LocationX, LocationY].isOpen = 0;
 
+                    setButton[LocationX, LocationY].Opening = true;
+
 
 
                     this.Controls.Add(setButton[LocationX, LocationY]);
@@ -65,18 +343,20 @@ namespace MineSweeper2
 
             }
 
-            #endregion
+        }
 
-            #region Random Address Boom In Form
+        private void CreateBoom(int SizeX = 9, int SizeY = 9, int NumberBoom = 5)
+        {
+
             int IncreBoomInForm = 0;
             //Limit Boom in Window Form 12
             //And Random X, Y in Location Button
-            while (IncreBoomInForm < 5)
+            while (IncreBoomInForm < NumberBoom)
             {
 
-                int RandomLocation = new Random().Next(9 * 9);
-                int r = RandomLocation / 9;
-                int c = RandomLocation % 9;
+                int RandomLocation = new Random().Next(SizeX * SizeY);
+                int r = RandomLocation / SizeX;
+                int c = RandomLocation % SizeY;
                 if (!setButton[r, c].isBoom)
                 {
 
@@ -84,13 +364,14 @@ namespace MineSweeper2
                     IncreBoomInForm++;
 
                     ValueThisLocationArray[r, c] = 9;
+
                     for (int ToaDoX = r - 1; ToaDoX <= r + 1; ToaDoX++)
                     {
 
                         for (int ToaDoY = c - 1; ToaDoY <= c + 1; ToaDoY++)
                         {
                             //Kiem tra cac toa do xung quanh
-                            if ((ToaDoX < 9 & ToaDoY < 9) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == r & ToaDoY == c))
+                            if ((ToaDoX < SizeX & ToaDoY < SizeY) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == r & ToaDoY == c))
                             {
 
 
@@ -112,14 +393,16 @@ namespace MineSweeper2
 
             }
 
-            #endregion
+        }
 
-            #region gán giá trị cho từng nút theo tọa độ
-            for (int i = 0; i < 9; i++)
+        private void PushNewValueIntoArray(int SizeX = 9, int SizeY = 9)
+        {
+
+            for (int i = 0; i < SizeX; i++)
             {
 
 
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < SizeY; j++)
                 {
 
 
@@ -131,102 +414,22 @@ namespace MineSweeper2
 
 
             }
-            #endregion
-
-
-
-
-
-
-            //Form1();
-
-
 
         }
-
-
-
-
-        public static void Process(object sender, MouseEventArgs e)
-        {
-
-
-            for (int i = 0; i < 9; i++)
-            {
-
-                for (int j = 0; j < 9; j++)
-                {
-
-                    if (setButton[i, j].isOpen == 5 && setButton[i, j].BoomAround == 0)
-                    {
-
-
-                        DeQuy(i, j);
-
-
-                    }
-
-                }
-
-            }
-
-
-
-        }
-
-
-        public static void DeQuy(int LocationXclicked, int LocationYclicked)
-        {
-
-            for (int ToaDoX = LocationXclicked - 1; ToaDoX <= LocationXclicked + 1; ToaDoX++)
-            {
-
-                for (int ToaDoY = LocationYclicked - 1; ToaDoY <= LocationYclicked + 1; ToaDoY++)
-                {
-
-                    if ((ToaDoX < 9 & ToaDoY < 9) & (ToaDoX >= 0 & ToaDoY >= 0) & !(ToaDoX == LocationXclicked && ToaDoY == LocationYclicked))
-                    {
-
-                        if (setButton[ToaDoX, ToaDoY].BoomAround != 0 && setButton[ToaDoX, ToaDoY].isOpen == 0)
-                        {
-
-                            setButton[ToaDoX, ToaDoY].Open();
-
-                            setButton[ToaDoX, ToaDoY].isOpen = 4;
-
-                            return;
-
-                        }
-                        else
-                        {
-
-                            setButton[ToaDoX, ToaDoY].Open();
-
-                            setButton[ToaDoX, ToaDoY].isOpen = 4;
-
-                            DeQuy(ToaDoX, ToaDoY);
-
-
-                        }
-
-
-
-                    }
-
-                }
-
-
-            }
-
-
-        }
-
-
 
 
         //partial class
 
 
+
+    }
+
+    public class cloneSave
+    {
+
+        public int getX { get; set; }
+
+        public int getY { get; set; }
 
     }
 

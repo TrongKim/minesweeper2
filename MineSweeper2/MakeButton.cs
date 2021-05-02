@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Net;
 
 namespace MineSweeper2
 {
@@ -14,6 +15,7 @@ namespace MineSweeper2
         public bool isBoom = false;
         public int BoomAround = 0;
         public int isOpen;
+        public bool Opening = false;
         
         
 
@@ -30,13 +32,16 @@ namespace MineSweeper2
         public void ButtonClicked(object sender, MouseEventArgs e)
         {
 
-            Open();
+            if (Opening)
+            {
 
-            MakeButton btn = sender as MakeButton;
-            btn.isOpen = 5;
+                Open();
 
-            
+                MakeButton btn = sender as MakeButton;
 
+                btn.isOpen = 5;
+
+            }
 
         }
 
@@ -44,60 +49,48 @@ namespace MineSweeper2
         public void Open()
         {
 
-            if (isBoom)
+            switch (BoomAround)
             {
 
-                BOOM();
+                case 0:
+                    isBoomAround0();
+                    break;
 
-            }
-            else
-            {
+                case 1:
+                    isBoomAround1();
+                    break;
 
-                switch (BoomAround)
-                {
+                case 2:
+                    isBoomAround2();
+                    break;
 
-                    case 0:
-                        isBoomAround0();
-                        break;
+                case 3:
+                    isBoomAround3();
+                    break;
 
-                    case 1:
-                        isBoomAround1();
-                        break;
+                case 4:
+                    isBoomAround4();
+                    break;
 
-                    case 2:
-                        isBoomAround2();
-                        break;
+                case 5:
+                    isBoomAround5();
+                    break;
 
-                    case 3:
-                        isBoomAround3();
-                        break;
+                case 6:
+                    isBoomAround6();
+                    break;
 
-                    case 4:
-                        isBoomAround4();
-                        break;
+                case 7:
+                    isBoomAround7();
+                    break;
 
-                    case 5:
-                        isBoomAround5();
-                        break;
+                case 8:
+                    isBoomAround8();
+                    break;
 
-                    case 6:
-                        isBoomAround6();
-                        break;
-
-                    case 7:
-                        isBoomAround7();
-                        break;
-
-                    case 8:
-                        isBoomAround8();
-                        break;
-
-
-
-
-                }
-
-                /*isOpen = 5;*/
+                default:
+                    BOOM();
+                    break;
 
 
             }

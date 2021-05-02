@@ -16,3 +16,4 @@ C:\Users\FlyTop\source\repos\MineSweeper2\MineSweeper2\obj\Debug\net5.0-windows\
 C:\Users\FlyTop\source\repos\MineSweeper2\MineSweeper2\obj\Debug\net5.0-windows\ref\MineSweeper2.dll
 C:\Users\FlyTop\source\repos\MineSweeper2\MineSweeper2\obj\Debug\net5.0-windows\MineSweeper2.pdb
 C:\Users\FlyTop\source\repos\MineSweeper2\MineSweeper2\obj\Debug\net5.0-windows\MineSweeper2.genruntimeconfig.cache
+C:\Users\FlyTop\source\repos\MineSweeper2\MineSweeper2\obj\Debug\net5.0-windows\MineSweeper2.Properties.Resources.resources
