@@ -35,11 +35,24 @@ namespace MineSweeper2
             if (Opening)
             {
 
-                Open();
+                if(e.Button == MouseButtons.Left)
+                {
 
-                MakeButton btn = sender as MakeButton;
+                    Open();
 
-                btn.isOpen = 5;
+                    MakeButton btn = sender as MakeButton;
+
+                    btn.isOpen = 5;
+
+                }
+
+                if(e.Button == MouseButtons.Right)
+                {
+
+                    this.BackColor = Color.Green;
+                    this.Text = "flag";
+
+                }
 
             }
 

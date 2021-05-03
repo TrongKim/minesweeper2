@@ -14,13 +14,11 @@ namespace MineSweeper2
     public partial class Form1 : Form
     {
 
-        private static MakeButton[,] setButton = new MakeButton[20, 20];
+        private static MakeButton[,] setButton = new MakeButton[100, 100];
 
-        private static int[,] ValueThisLocationArray = new int[20, 20];
+        private static int[,] ValueThisLocationArray = new int[100, 100];
 
         public static Save save = new Save();
-
-        public static cloneSave clsave = new cloneSave();
 
         public static int number1 = 9;
 
@@ -66,7 +64,7 @@ namespace MineSweeper2
 
 
                     }
-                    else if (setButton[i, j].isOpen == 5 && setButton[i, j].BoomAround == 9)
+                    else if (setButton[i, j].isOpen == 5 && setButton[i, j].isBoom == true)
                     {
 
                         HienBOOM(number1, number2);
@@ -269,8 +267,29 @@ namespace MineSweeper2
             
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)//che do kho
         {
+
+            panel1.Controls.Clear();
+
+            CreateButton(25, 25);//giữ && không gọi các hàm khác
+
+            CreateArrayValue0(25, 25);//giữ không gọi các hàm khác
+
+            CreateBoom(25, 25, 100);//giữ không gọi các hàm khác
+
+            PushNewValueIntoArray(25, 25);//giữ không gọi các hàm khác
+
+            number1 = 25;
+
+            number2 = 25;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)// che do binh thuong
+        {
+
+            panel1.Controls.Clear();
 
             CreateButton(18, 18);//giữ && không gọi các hàm khác
 
@@ -286,15 +305,24 @@ namespace MineSweeper2
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)// che do de
         {
 
-        }
+            panel1.Controls.Clear();
 
-        private void button4_Click(object sender, EventArgs e)
-        {
+            MessageBox.Show("ơ ai lại chơi chọn chế độ dễ");
 
-            
+            CreateButton();
+
+            CreateArrayValue0();
+
+            CreateBoom();
+
+            PushNewValueIntoArray();
+
+            number1 = 9;
+
+            number2 = 9;
 
         }
 
@@ -336,7 +364,7 @@ namespace MineSweeper2
 
 
 
-                    this.Controls.Add(setButton[LocationX, LocationY]);
+                    panel1.Controls.Add(setButton[LocationX, LocationY]);
 
 
                 }
@@ -417,19 +445,19 @@ namespace MineSweeper2
 
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+            
+
+        }
+
+
+
 
         //partial class
 
 
-
-    }
-
-    public class cloneSave
-    {
-
-        public int getX { get; set; }
-
-        public int getY { get; set; }
 
     }
 
